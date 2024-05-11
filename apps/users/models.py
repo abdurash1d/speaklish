@@ -15,7 +15,7 @@ class User(AbstractUser, TimeStampedModel):
         STUDENT = "student", _("Student")
 
     role = models.CharField(_("Role"), max_length=50, choices=RoleChoices.choices, null=True)
-    phone_number = PhoneNumberField(_("Phone number"), null=True, blank=True)
+    phone = PhoneNumberField(_("Phone number"), null=True, blank=True)
     photo = ResizedImageField(_("Photo"), size=[512, 512], upload_to="user_photo/", null=True, blank=True)
     added_by = models.ForeignKey(
         "self", verbose_name=_("Added by"), on_delete=models.SET_NULL, null=True, blank=True, related_name="added_users"
