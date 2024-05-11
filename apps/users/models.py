@@ -21,11 +21,19 @@ class User(AbstractUser, TimeStampedModel):
         "self", verbose_name=_("Added by"), on_delete=models.SET_NULL, null=True, blank=True, related_name="added_users"
     )
     # group field is used for students only
-    # group = models.ForeignKey(
-    #     "dashboard.Group", verbose_name=_("Group"), on_delete=models.SET_NULL, null=True, blank=True, related_name="students"
-    # )
+    group = models.ForeignKey(
+        "dashboard.Group",
+        verbose_name=_("Group"),
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="students",
+    )
 
     objects = UserManager()
+
+    def __str__(self):
+        return self.username
 
     class Meta:
         verbose_name = _("User")
