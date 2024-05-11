@@ -17,15 +17,17 @@ class LoginView(GenericAPIView):
         serializer.is_valid(raise_exception=True)
 
         phone = serializer.validated_data.get("phone")
+        username = serializer.validated_data.get("username")
 
-        user = User.objects.filter(phone=phone).first()
-        if user is None:
-            return Response(
-                {"message": "Invalid credentials"},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
+        if phone:
+            user = User.objects.filter(phone=phone).first()
+            if user is None:
+                return Response(
+                    {"message": "Invalid credentials"},
+                    status=status.HTTP_400_BAD_REQUEST,
+                )
 
-        username = user.username
+            username = user.username
 
         user = authenticate(username=username, password=serializer.validated_data.get("password"))
 
