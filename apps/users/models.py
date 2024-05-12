@@ -37,6 +37,16 @@ class User(SoftDeleteModel, AbstractUser, TimeStampedModel):
     def __str__(self):
         return self.username
 
+    def delete(self, strict: bool = False, *args, **kwargs):
+        super().delete(strict=strict, *args, **kwargs)
+
+        self.username = f"DELETED_{self.id}_{self.username}"  # type: ignore
+        if self.email:
+            self.email = f"DELETED_{self.id}_{self.email}"
+        if self.phone:
+            self.phone = f"DELETED_{self.id}_{self.phone}"
+        self.save(update_fields=["username", "email", "phone"])
+
     class Meta:
         verbose_name = _("User")
         verbose_name_plural = _("Users")
