@@ -2,13 +2,14 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django_resized import ResizedImageField
+from django_softdelete.models import SoftDeleteModel
 from phonenumber_field.modelfields import PhoneNumberField
 
 from apps.common.models import TimeStampedModel
 from apps.users.managers import UserManager
 
 
-class User(AbstractUser, TimeStampedModel):
+class User(SoftDeleteModel, AbstractUser, TimeStampedModel):
     class RoleChoices(models.TextChoices):
         STAFF = "staff", _("Staff")
         TEACHER = "teacher", _("Teacher")

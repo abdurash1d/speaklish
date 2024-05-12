@@ -1,10 +1,11 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from django_softdelete.models import SoftDeleteModel
 
 from apps.common.models import TimeStampedModel
 
 
-class Organization(TimeStampedModel):
+class Organization(TimeStampedModel, SoftDeleteModel):
     name = models.CharField(max_length=255)
     manager = models.OneToOneField("users.User", on_delete=models.CASCADE, related_name="organizations")
 
@@ -16,7 +17,7 @@ class Organization(TimeStampedModel):
         verbose_name_plural = _("Organizations")
 
 
-class Group(TimeStampedModel):
+class Group(TimeStampedModel, SoftDeleteModel):
     name = models.CharField(max_length=255)
     teacher = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="teaching_groups")
     start_date = models.DateField()
@@ -31,7 +32,7 @@ class Group(TimeStampedModel):
         verbose_name_plural = _("Groups")
 
 
-class StudentTestResult(TimeStampedModel):
+class StudentTestResult(TimeStampedModel, SoftDeleteModel):
     student = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="test_results")
     group = models.ForeignKey("dashboard.Group", on_delete=models.CASCADE, related_name="test_results")
     result = models.FloatField()
