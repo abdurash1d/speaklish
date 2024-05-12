@@ -38,13 +38,13 @@ class LoginView(GenericAPIView):
             )
 
         refresh = RefreshToken.for_user(user)
-        token = str(refresh.access_token)
-        access_token = str(refresh)
+        access_token = str(refresh.access_token)
+        refresh_token = str(refresh)
 
         return Response(
             {
                 "role": user.role,
-                "refresh": token,
+                "re fresh": refresh_token,
                 "access": access_token,
             },
             status=status.HTTP_200_OK,
