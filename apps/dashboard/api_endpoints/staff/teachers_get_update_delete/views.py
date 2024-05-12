@@ -16,8 +16,5 @@ class TeachersGetUpdateDeleteAPIView(RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         return User.objects.filter(role="teacher", added_by=self.request.user)
 
-    def get_object(self):
-        return self.get_queryset().get(id=self.kwargs.get("pk"))
-
 
 __all__ = ["TeachersGetUpdateDeleteAPIView"]

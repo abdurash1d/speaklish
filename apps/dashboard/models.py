@@ -7,7 +7,7 @@ from apps.common.models import TimeStampedModel
 
 class Organization(TimeStampedModel, SoftDeleteModel):
     name = models.CharField(max_length=255)
-    manager = models.OneToOneField("users.User", on_delete=models.CASCADE, related_name="organizations")
+    manager = models.OneToOneField("users.User", on_delete=models.CASCADE, related_name="organization")
 
     def __str__(self):
         return self.name
@@ -19,10 +19,14 @@ class Organization(TimeStampedModel, SoftDeleteModel):
 
 class Group(TimeStampedModel, SoftDeleteModel):
     name = models.CharField(max_length=255)
-    teacher = models.ForeignKey("users.User", on_delete=models.CASCADE, related_name="teaching_groups")
+    teacher = models.ForeignKey("users.User", on_delete=models.PROTECT, related_name="teaching_groups")
     start_date = models.DateField()
     end_date = models.DateField()
     referral_link = models.URLField(null=True, blank=True)
+    students_count = models.PositiveIntegerField(default=0)
+    organization = models.ForeignKey(
+        "dashboard.Organization", on_delete=models.PROTECT, related_name="groups", null=True
+    )
 
     def __str__(self):
         return self.name

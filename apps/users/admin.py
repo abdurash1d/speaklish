@@ -21,5 +21,6 @@ class UserAdmin(BaseUserAdmin, ModelAdmin):
         ),
         ("Important dates", {"fields": ("last_login", "date_joined")}),
     )
-
+    list_display = ("id", "username", "email", "phone", "first_name", "last_name", "role")
+    list_display_links = ("id", "username")
     readonly_fields = ("last_login", "date_joined", "created_at", "updated_at")
