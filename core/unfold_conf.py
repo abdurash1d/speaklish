@@ -10,10 +10,10 @@ UNFOLD = {
         "light": lambda request: static("admin/img/favicon.svg"),  # light mode
         "dark": lambda request: static("admin/img/favicon.svg"),  # dark mode
     },
-    "SITE_LOGO": {
-        "light": lambda request: static("admin/img/favicon.svg"),  # light mode
-        "dark": lambda request: static("admin/img/favicon.svg"),  # dark mode
-    },
+    # "SITE_LOGO": {
+    #     "light": lambda request: static("admin/img/favicon.svg"),  # light mode
+    #     "dark": lambda request: static("admin/img/favicon.svg"),  # dark mode
+    # },
     "SITE_SYMBOL": "speed",  # symbol from icon set
     "SHOW_HISTORY": True,  # show/hide "History" button, default: True
     "SHOW_VIEW_ON_SITE": True,  # show/hide "View on site" button, default: True
