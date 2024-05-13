@@ -18,4 +18,9 @@ urlpatterns = [
         api_endpoints.staff.GroupGetUpdateDeleteAPIView.as_view(),
         name="staff_groups_get_update_delete",
     ),
+    path(
+        "staff/groups/students/",
+        api_endpoints.staff.StudentsListCreateAPIView.as_view(),
+        name="staff_students_list_create",
+    ),
 ]

@@ -44,7 +44,7 @@ class LoginView(GenericAPIView):
         return Response(
             {
                 "role": user.role,
-                "re fresh": refresh_token,
+                "refresh": refresh_token,
                 "access": access_token,
             },
             status=status.HTTP_200_OK,

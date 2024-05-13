@@ -1,16 +1,12 @@
 from django.utils.translation import gettext_lazy as _
+from phonenumber_field.serializerfields import PhoneNumberField
 from rest_framework import serializers
 
-from apps.users.models import User
 
-
-class LoginSerializer(serializers.ModelSerializer):
+class LoginSerializer(serializers.Serializer):
     username = serializers.CharField(required=False)
-
-    class Meta:
-        model = User
-        fields = ["phone", "username", "password"]
-        extra_kwargs = {"password": {"write_only": True}}
+    phone = PhoneNumberField(required=False)
+    password = serializers.CharField()
 
     def validate(self, attrs):
         if "phone" not in attrs and "username" not in attrs:
