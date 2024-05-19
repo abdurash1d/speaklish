@@ -8,14 +8,19 @@ from .serializers import TeachersCreateSerializer, TeachersListSerializer
 
 
 class TeachersListCreateAPIView(ListCreateAPIView):
-    permission_classes = [APIPermission]
+    permission_classes = (APIPermission,)
     serializer_class = TeachersListSerializer
+    search_fields = (
+        "first_name",
+        "last_name",
+        "phone",
+    )
     serializer_map = {
         "GET": TeachersListSerializer,
         "POST": TeachersCreateSerializer,
     }
-    parser_classes = [MultiPartParser]
-    allowed_roles = ["staff"]
+    parser_classes = (MultiPartParser,)
+    allowed_roles = ("staff",)
 
     def get_queryset(self):
         return User.objects.filter(role="teacher", added_by=self.request.user)

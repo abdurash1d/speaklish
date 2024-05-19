@@ -2,12 +2,18 @@ from rest_framework.generics import ListCreateAPIView
 
 from apps.common.permissions import APIPermission
 from apps.users.models import User
-from .serializers import StudentsListSerializer, StudentsCreateSerializer
+
+from .serializers import StudentsCreateSerializer, StudentsListSerializer
 
 
 class StudentsListCreateAPIView(ListCreateAPIView):
     permission_classes = (APIPermission,)
     serializer_class = StudentsListSerializer
+    filterset_fields = ("group",)
+    search_fields = (
+        "first_name",
+        "last_name",
+    )
     serializer_map = {
         "GET": StudentsListSerializer,
         "POST": StudentsCreateSerializer,

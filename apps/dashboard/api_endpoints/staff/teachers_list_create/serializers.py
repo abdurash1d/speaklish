@@ -13,6 +13,7 @@ class TeachersListSerializer(serializers.ModelSerializer):
             "id",
             "first_name",
             "last_name",
+            "phone",
             # "total_students",
             # "avg_score",
         )

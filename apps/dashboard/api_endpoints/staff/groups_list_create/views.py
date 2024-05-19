@@ -7,13 +7,17 @@ from .serializers import GroupCreateSerializer, GroupListSerializer
 
 
 class GroupListCreateAPIView(ListCreateAPIView):
-    permission_classes = [APIPermission]
+    permission_classes = (APIPermission,)
     serializer_class = GroupListSerializer
+    search_fields = (
+        "teacher__first_name",
+        "teacher__last_name",
+    )
     serializer_map = {
         "GET": GroupListSerializer,
         "POST": GroupCreateSerializer,
     }
-    allowed_roles = ["staff"]
+    allowed_roles = ("staff",)
 
     def get_queryset(self):
         return Group.objects.filter(organization=self.request.user.organization)
