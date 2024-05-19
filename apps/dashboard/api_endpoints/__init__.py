@@ -1,1 +1,1 @@
-from .staff import *  # noqa
+from . import staff, teacher  # noqa

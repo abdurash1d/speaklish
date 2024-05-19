@@ -1,0 +1,33 @@
+from rest_framework.generics import ListCreateAPIView
+
+from apps.common.permissions import APIPermission
+from apps.users.models import User
+
+from .serializers import StudentsCreateSerializer, StudentsListSerializer
+
+
+class StudentsListCreateAPIView(ListCreateAPIView):
+    permission_classes = (APIPermission,)
+    serializer_class = StudentsListSerializer
+    filterset_fields = ("group",)
+    search_fields = (
+        "first_name",
+        "last_name",
+    )
+    serializer_map = {
+        "GET": StudentsListSerializer,
+        "POST": StudentsCreateSerializer,
+    }
+    allowed_roles = ("teacher",)
+
+    def get_queryset(self):
+        return User.objects.filter(role="student", group__teacher=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(role="student", added_by=self.request.user)
+
+    def get_serializer_class(self):
+        return self.serializer_map.get(self.request.method, self.serializer_class)
+
+
+__all__ = ["StudentsListCreateAPIView"]
