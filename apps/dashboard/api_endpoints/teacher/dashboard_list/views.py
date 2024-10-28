@@ -1,18 +1,18 @@
 from rest_framework.generics import ListAPIView
+from django_filters.rest_framework import DjangoFilterBackend
 
 from apps.common.permissions import APIPermission
 from apps.dashboard.models import ParsedSessions
 
 from .serializers import ParsedSessionSerializer
+from .filters import ParsedSessionFilter
 
 
 class ParsedSessionListAPIView(ListAPIView):
     permission_classes = ()
     serializer_class = ParsedSessionSerializer
-    search_fields = ("session",)
-    allowed_roles = ("teacher",)
-
-    def get_queryset(self):
-        return ParsedSessions.objects.filter(
-            # session__teacher=self.request.user
-        ).order_by("-band_score")
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = ParsedSessionFilter
+    queryset = ParsedSessions.objects.all()
+    allowed_roles = ('teacher', 'admin')
+    
