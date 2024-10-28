@@ -98,8 +98,18 @@ DATABASES = {
         "PASSWORD": env.get_value("DB_PASSWORD"),
         "HOST": env.str("DB_HOST"),
         "PORT": env.str("DB_PORT"),
+    },
+    "old_db": {
+        "ENGINE": env.str("OLD_DB_ENGINE"),
+        "NAME": env.str("OLD_DB_NAME"),
+        "USER": env.str("OLD_DB_USER"),
+        "PASSWORD": env.get_value("OLD_DB_PASSWORD"),
+        "HOST": env.str("OLD_DB_HOST"),
+        "PORT": env.str("OLD_DB_PORT"),
     }
 }
+
+DATABASE_ROUTERS = ["core.routers.OldDBRouter"]
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

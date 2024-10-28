@@ -31,4 +31,5 @@ urlpatterns = [
         name="teacher_groups_get_update_delete",
     ),
     path("teacher/groups/students/", teacher.StudentsListCreateAPIView.as_view(), name="teacher_students_create"),
+    path("teacher/dashboard/", teacher.ParsedSessionListAPIView.as_view(), name="teacher_dashboard_list"),
 ]
