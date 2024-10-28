@@ -71,6 +71,7 @@ class ParsedSessions(models.Model):
     class Meta:
         managed = False
         db_table = 'parsed_sessions'
+        
 
 class TestSessionSchools(models.Model):
     id = models.BigAutoField(primary_key=True)
@@ -90,6 +91,20 @@ class TestSessionSchools(models.Model):
     class Meta:
         managed = False
         db_table = 'test_session_schools'
+
+
+class SchoolProfiles(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    school_name = models.CharField(max_length=255, blank=True, null=True)
+    session_count = models.IntegerField()
+    created_at = models.DateTimeField(blank=True, null=True)
+    updated_at = models.DateTimeField(blank=True, null=True)
+    school = models.OneToOneField('OLDAuthUser', models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'school_profiles'
+
 
 class OLDAuthUser(models.Model):
     password = models.CharField(max_length=128)

@@ -1,8 +1,10 @@
 from rest_framework import serializers
 
-from apps.dashboard.models import ParsedSessions
+from apps.dashboard.models import ParsedSessions, SchoolProfiles
 
 class ParsedSessionSerializer(serializers.ModelSerializer):
+    session_source = serializers.SerializerMethodField()
+
     class Meta:
         model = ParsedSessions
         fields = ('id',
@@ -19,6 +21,14 @@ class ParsedSessionSerializer(serializers.ModelSerializer):
                   'suggested_vocab',
                   'token_usage',
                   'wait_time',
-                  'created_at')
+                  'created_at',
+                  'session_source')
         
-        ref_name = "ParsedSessionsSerializer"  
+        ref_name = "ParsedSessionsSerializer"
+
+    def get_session_source(self, obj):
+        if obj.session.school.id == 4:
+            return 'bot'
+        elif obj.session.school.id == 5:
+            return 'sayra'
+        return None
