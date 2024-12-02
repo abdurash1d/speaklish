@@ -27,8 +27,8 @@ class ParsedSessionSerializer(serializers.ModelSerializer):
         ref_name = "ParsedSessionsSerializer"
 
     def get_session_source(self, obj):
-        if obj.session.school.id == 4:
+        if obj.session.school.id == 6:
             return 'bot'
-        elif obj.session.school.id == 5:
+        elif obj.session.school.id == 7:
             return 'sayra'
         return None
