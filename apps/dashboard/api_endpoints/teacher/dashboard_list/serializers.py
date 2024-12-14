@@ -4,11 +4,13 @@ from apps.dashboard.models import ParsedSessions, SchoolProfiles
 
 class ParsedSessionSerializer(serializers.ModelSerializer):
     session_source = serializers.SerializerMethodField()
+    student_id = serializers.IntegerField(source='session.student_id')
 
     class Meta:
         model = ParsedSessions
         fields = ('id',
                   'session',
+                  'student_id',
                   'raw_json',
                   'parsed_json',
                   'feedback',
